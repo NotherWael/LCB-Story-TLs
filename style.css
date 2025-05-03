@@ -125,7 +125,7 @@ button,
 }
 .image-gallery a img,
 .character-gallery a img {
-  width: 100%;
+  width: 40%;
   height: auto;
   border-radius: 0px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
