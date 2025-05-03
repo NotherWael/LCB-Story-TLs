@@ -137,6 +137,60 @@ button,
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
+.image-gallery a {
+  display: inline-block;
+  width: fit-content;
+  padding: 0;
+  margin: 0 auto;
+}
+
+.image-gallery a img {
+  width: 450px; /* Explicit width matching your image size */
+  height: 150px; /* Explicit height matching your image size */
+  object-fit: cover; /* Adjust as needed */
+  display: block; /* Remove extra space around image */
+}
+
+/* Optional: Add if using grid layout */
+.image-gallery {
+  justify-items: center;
+}
+
+.character-gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Changed from 1 to 4 columns */
+  gap: 30px; /* Adjust gap between items */
+  padding: 20px;
+  width: 100%;
+  margin: 0 auto; /* Center the gallery */
+  max-width: 1400px; /* Add max-width for better control */
+}
+
+/* Update responsive breakpoints */
+@media (max-width: 1024px) {
+  .character-gallery {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns on tablets */
+    gap: 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .character-gallery {
+    grid-template-columns: 1fr; /* 1 column on mobile */
+    gap: 15px;
+    padding: 10px;
+  }
+}
+
+/* Adjust image sizing */
+.character-gallery a img {
+  width: 100%; /* Make images fill their grid cells */
+  height: auto;
+  aspect-ratio: 1/1.4; /* Optional: Maintain portrait ratio */
+  object-fit: cover; /* Prevent image distortion */
+}
+
+
 #back-button {
   background: none;
   border: none;
