@@ -1,0 +1,590 @@
+/* Import Pretendard from CDN */
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+@font-face {
+  font-family: 'Mikodacs';
+  src: url('fonts/Mikodacs.woff2') format('woff2'),
+       url('fonts/Mikodacs.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  font-family: 'Pretendard', sans-serif;
+}
+
+.mikodacs-text {
+  font-family: 'Mikodacs', sans-serif;
+  letter-spacing: 0.09em;
+  color: white;
+  text-shadow: 0px 0px 20px rgba(0, 0, 0, 100);
+}
+
+body {
+  position: relative;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: none;
+}
+
+body {
+  cursor: url('assets/mouse_off.cur'), auto;
+}
+
+.image-gallery img {
+  opacity: 1;
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+a:hover,
+button:hover,
+.image-gallery a:hover img,
+body:active {
+  cursor: url('assets/mouse_on.cur'), pointer;
+}
+
+a,
+button,
+.image-gallery a img {
+  cursor: url('assets/mouse_off.cur'), auto;
+}
+
+#dynamic-content {
+  margin-top: 40px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.00);
+  border-top: 1px solid rgba(255, 255, 255, 0.0);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+#dynamic-content.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.overlay {
+  position: static; /* Add this */
+  background-color: rgba(0, 0, 0, 0.7);
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 40px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.overlay:not(:has(#dynamic-content.visible)) {
+  background-color: rgba(0, 0, 0, 0) !important;
+}
+
+.content {
+  color: white;
+  text-align: center;
+  padding: 30px;
+  background-color: rgb(0 0 0 / 0%);
+  border-radius: 5px;
+  max-width: 1300px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.content h1,
+.content p {
+  position: sticky;
+  background: rgba(0, 0, 0, 0.0);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.0);
+}
+
+/* Gallery Styles */
+.image-gallery,
+.character-gallery {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 20px;
+  padding: 20px;
+  width: 100%;
+}
+.character-gallery {
+  margin-left: 50px;
+}
+.image-gallery a img,
+.character-gallery a img {
+  width: 100%;
+  height: auto;
+  border-radius: 0px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.image-gallery a:hover img,
+.character-gallery a:hover img {
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+#back-button {
+  background: none;
+  border: none;
+  padding: 0;
+  position: fixed;
+  top: 0px;
+  left: 20px;
+  z-index: 9999;
+  cursor: url('assets/mouse_on.cur'), pointer;
+}
+
+#back-button img {
+  width: 70px;
+  height: 70px;
+  transition: transform 0.2s ease;
+}
+
+#back-button:hover img {
+  transform: scale(1.1);
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.detail-header {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  position: relative;
+  margin: 0 auto -100px;
+  margin-bottom: -100px;
+  width: 100%;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.0);
+  border-radius: 0px;
+  max-width: 800px;
+  min-width: fit-content; /* Prevent content shrinking */
+}
+
+.detail-header img {
+  position: relative; /* Allows manual positioning */
+  top: -200px; /* Move image upward */
+  margin-bottom: -280px; /* Compensate for the upward movement */
+  width: 250px; /* Fixed width */
+  height: 300px; /* Fixed height */
+  object-fit: contain; /* Maintain aspect ratio */
+  border-radius: 0%;
+  border: 0px solid white;
+  flex-shrink: 0; /* Prevent image from shrinking */
+}
+
+.detail-header h2 {
+  font-family: 'Mikodacs', sans-serif;
+  z-index: 998;
+  font-size: 2em;
+  color: white;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.9);
+  white-space: nowrap; /* Prevent text wrapping */
+  overflow: hidden;
+  text-overflow: ellipsis; /* Add ... if text overflows */
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .detail-header {
+	max-width: 100%;
+    gap: 15px;
+    padding: 15px;
+  }
+  
+  .detail-header h2 {
+    font-size: 1.5em;
+	line-height: 1.3;
+  }
+}
+
+.voiceline-detail .translation-link {
+  position: absolute;
+  top: 60px;
+  z-index: 999;
+  color: #ffd700 !important;
+  font-family: 'Mikodacs', sans-serif;
+  text-decoration: none;
+  font-size: 0.9em;
+  transition: opacity 0.3s ease;
+}
+
+.voiceline-detail .translation-link:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
+
+.spreadsheet td span {
+  display: inline;
+  background: transparent !important;
+}
+
+/* Spreadsheet Styles */
+.spreadsheet table {
+  width: 100%;
+  border-collapse: collapse;
+  background: rgba(0, 0, 0, 0.8);
+  margin: 20px 0;
+}
+
+.spreadsheet th, .spreadsheet td {
+  padding: 12px 15px;
+  border: 1px solid #ffffff50;
+  font-size: 0.9em;
+}
+
+.spreadsheet th {
+  background: #ffffff15;
+  font-weight: 600;
+  color: #fff;
+  font-family: 'Mikodacs', sans-serif;
+}
+
+.spreadsheet td {
+  background: #00000030;
+  color: #fff;
+}
+
+.spreadsheet td {
+  white-space: normal !important; /* Ensure text wrapping */
+}
+
+.spreadsheet td:nth-child(1) {
+  font-weight: 400;
+  letter-spacing: normal; /* Added to fix spacing */
+  min-width: 240px; /* Adjust this value as needed */
+  max-width: 300px; /* Maximum width before text wraps */
+  word-break: break-word;
+}
+
+/* Fixed Translation Column Styles */
+.spreadsheet td:nth-child(2) {
+  font-family: 'Pretendard', sans-serif;
+  color: #d4e1e8 !important;
+  font-weight: 500;
+  letter-spacing: normal; /* Added to fix spacing */
+  min-width: 440px; /* Adjust this value as needed */
+  max-width: 600px; /* Maximum width before text wraps */
+  width: 30%; /* Percentage-based width */
+  white-space: normal;
+  word-break: break-word;
+  padding: 8px 12px;
+  line-height: 1.5;
+}
+
+.spreadsheet td:nth-child(4) {
+  letter-spacing: normal; /* Added to fix spacing */
+  min-width: 300px; /* Adjust this value as needed */
+  max-width: 400px; /* Maximum width before text wraps */
+  word-break: break-word;
+  padding: 8px 12px;
+  line-height: 1.5;
+}
+
+
+.spreadsheet audio {
+  width: 100px;
+  height: 20px;
+}
+
+.spreadsheet audio::-webkit-media-controls-panel {
+  background-color: #ffffff15;
+}
+
+.audio-stack {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.unused-section {
+  margin-top: 15px;
+  padding-top: 10px;
+  border-top: 1px dashed #ffffff50;
+}
+
+.unused {
+  opacity: 0.7;
+}
+
+.voiceline-detail {
+  display: flex;
+  flex-direction: column;
+  grid-template-columns: 0px 0fr;
+  gap: 40px;
+  width: 100%;
+  align-items: center;
+  padding: 20px;
+}
+
+.detail-image {
+  width: 0%;
+  border-radius: 0px;
+  border: 0px solid #ffffff30;
+}
+
+/* Background Transition Fix */
+body {
+  background-color: #000; /* Fallback color */
+}
+
+.bg-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+}
+
+/* Add this rule to prevent nested transitions */
+.body-bg {
+  pointer-events: none; /* Add this line */
+  position: fixed;
+  top: 0;
+  left: 0;
+  transition: none;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
+  background-color: #000;
+}
+
+#current-bg {
+  z-index: -1;
+  background-image: url('assets/background.png');
+  opacity: 1;
+}
+
+#new-bg {
+  display: none;
+  opacity: 0;
+  z-index: 0;
+}
+
+#youtube-profile {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+  z-index: 9999;
+}
+
+#youtube-profile:hover {
+  transform: scale(1.1);
+  transition: transform 0.3s ease;
+}
+
+/* Add these styles to your CSS */
+.overlay {
+  position: fixed; /* Changed from default */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow-y: auto; /* Allow vertical scrolling */
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+}
+
+.character-gallery img {
+  content-visibility: auto;
+  contain-intrinsic-size: 300px 400px; /* Adjust to your image aspect ratio */
+}
+
+
+#back-button {
+  /* Replace existing positioning */
+  position: fixed;
+  top: 20px; /* Match image position */
+  left: 20px;
+  height: 70px; /* Match image size */
+  width: 70px;
+  padding: 0;
+  margin: 0;
+  overflow: hidden; /* Contain click area */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#back-button img {
+  pointer-events: none; /* Make image non-clickable */
+}
+
+/* Make the button itself clickable */
+#back-button::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: url('assets/mouse_on.cur'), pointer;
+}
+
+#back-button {
+  overflow: visible !important; /* Allow hover overflow */
+  transform-origin: left center; /* Keep scaling contained */
+}
+
+#back-button:hover img {
+  transform: scale(1.05); /* Reduced scale for safety */
+  filter: drop-shadow(0 0 5px rgb(255 220 0 / 50%)); /* Add glow instead */
+}
+
+#back-button img {
+  transition: all 0.2s ease;
+  margin-right: 10px; /* Add breathing room */
+}
+
+
+
+
+
+
+
+ /* MOBILE FIX HELL HERE */
+
+
+ @media (max-width: 1024px) {
+   .image-gallery,
+   .character-gallery {
+     grid-template-columns: repeat(1, 1fr);
+   }
+ }
+ 
+ @media (max-width: 600px) {
+   .image-gallery,
+   .character-gallery {
+     grid-template-columns: repeat(1, 1fr);
+   }
+ }
+ 
+ @media (max-width: 600px) {
+   .overlay {
+     padding: 20px 10px; /* Reduce padding */
+     align-items: stretch; /* Full height alignment */
+   }
+ 
+   .content {
+     padding: 15px;
+     width: 100%;
+   }
+ 
+   .content h1,
+   .content p {
+     position: static; /* Remove sticky on mobile */
+     text-align: center;
+     width: 100%;
+     margin: 0 0 15px 0;
+     padding: 10px;
+   }
+ 
+   .image-gallery,
+   .character-gallery {
+     grid-template-columns: repeat(1, 1fr); /* 2 columns for mobile */
+     gap: 10px;
+     padding: 0;
+     margin-left: 0; /* Remove left margin */
+   }
+ 
+   /* Ensure full width for gallery items */
+   .image-gallery a,
+   .character-gallery a {
+     width: 100%;
+   }
+ }
+
+ /* Mobile spreadsheet fixes */
+ @media (max-width: 600px) {
+   /* Fix spreadsheet container */
+   .voiceline-detail {
+     grid-template-columns: 1fr;
+     padding: 10px;
+     width: 100vw;
+     margin-left: -10px;
+   }
+ 
+   /* Fix spreadsheet table */
+   .spreadsheet {
+     overflow-x: auto;
+     width: 100%;
+     -webkit-overflow-scrolling: touch;
+   }
+ 
+   .spreadsheet table {
+     min-width: 600px; /* Minimum width for scrollable table */
+   }
+ 
+   /* Fix header positioning */
+   .voiceline-detail h1,
+   .voiceline-detail p {
+     position: static !important;
+     text-align: center;
+     width: 100%;
+     padding: 0 10px;
+   }
+ 
+   /* Adjust back button position */
+   #back-button {
+     left: 10px;
+     top: 10px;
+   }
+ 
+   #back-button img {
+     width: 50px;
+     height: 50px;
+   }
+ 
+   /* Fix dynamic content positioning */
+   #dynamic-content {
+     margin-top: 20px;
+     padding: 10px;
+     width: 100%;
+   }
+ }
+
+
+ @media (orientation: portrait) and (max-width: 600px) {
+   .voiceline-detail .translation-link {
+     top: 40px !important;
+   }
+ }
+
+ @media (orientation: landscape) and (max-width: 800px) {
+   .spreadsheet {
+    width: 100%;
+   }
+ }
